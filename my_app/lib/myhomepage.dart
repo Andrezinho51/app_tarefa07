@@ -9,7 +9,7 @@ class MyHomePage extends StatelessWidget {
   String email = '';
   String password = '';
 
-  final url = Uri.parse('http://127.0.0.1:5000/login');
+  
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,27 @@ class MyHomePage extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))
         ), 
     );
-    
+
+    final buttonCadastro = ButtonTheme(
+      minWidth: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+      child: Container(
+        child: ElevatedButton(
+          child: Text("Cadastrar", textAlign: TextAlign.center,
+          style: style.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          )),
+          onPressed: ((){
+            final url = Uri.parse('http://127.0.0.1:5000/cadastro');
+            http.post(url, body: {'email': email, 'password': password});
+
+          }),
+        ),
+      ),
+         
+    );
+
     final buttonLogin = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -51,6 +71,7 @@ class MyHomePage extends StatelessWidget {
             fontWeight: FontWeight.bold
           )),
           onPressed: ((){
+            final url = Uri.parse('http://127.0.0.1:5000/login');
             http.post(url, body: {'email': email, 'password': password});
           
           }),
@@ -72,7 +93,9 @@ class MyHomePage extends StatelessWidget {
             children: [
               SizedBox(height: 30.0),emailField,
               SizedBox(height: 30.0),passwordField,
+              SizedBox(height: 30.0),buttonCadastro,
               SizedBox(height: 30.0),buttonLogin,
+
               Text('')
             ],
           ),
