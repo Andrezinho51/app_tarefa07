@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import mysql.connector
 
 db = mysql.connector.connect(
@@ -43,6 +43,7 @@ def login():
         senha_encontrada = email_res[1]
         if senha_encontrada == password:
             print("Logado com sucesso")
+            return jsonify({'acesso': 'True'})
         else:
             print("Senha incorreta")
 
